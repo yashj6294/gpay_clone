@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
           title: 'Google Pay',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,
             appBarTheme: const AppBarTheme(
                 systemOverlayStyle: SystemUiOverlayStyle.light),
             bottomSheetTheme:
                 const BottomSheetThemeData(backgroundColor: Colors.transparent),
           ),
-          home: const AmountEntryScreen(),
+          home: const AmountEntryScreen(amount: "",),
         ),
       ),
     );

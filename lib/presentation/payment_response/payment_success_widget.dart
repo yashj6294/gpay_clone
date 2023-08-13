@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:gpay_clone/presentation/amount_entry/amount_entry_screen.dart';
 
 import 'package:gpay_clone/presentation/payment_response/components/ripple_painter.dart';
 import 'package:gpay_clone/presentation/payment_response/components/tick_painter.dart';
@@ -15,15 +16,13 @@ class PaymentSuccessWidget extends StatefulWidget {
   State<PaymentSuccessWidget> createState() => _PaymentSuccessWidgetState();
 }
 
-class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget>
-    with SingleTickerProviderStateMixin {
+class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation tickAnimation, ripple1Animation, ripple2Animation;
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2000));
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 2000));
     tickAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
@@ -121,7 +120,11 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget>
             const SizedBox(height: 80),
             MaterialButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AmountEntryScreen(amount: "")),
+                  (route) => false,
+                );
               },
               color: Colors.blue[300],
               elevation: 0.0,

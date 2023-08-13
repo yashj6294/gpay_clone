@@ -1,10 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:gpay_clone/presentation/mpin_entry/mpin_entry_screen.dart';
 
 class AmountEntryScreen extends StatefulWidget {
-  const AmountEntryScreen({super.key});
+  final String amount;
+  const AmountEntryScreen({
+    Key? key,
+    required this.amount,
+  }) : super(key: key);
 
   @override
   State<AmountEntryScreen> createState() => _AmountEntryScreenState();
@@ -15,6 +20,13 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
   final profileUrlSender = "https://picsum.photos/200?random=1";
   final profileUrlReceiver = "https://picsum.photos/200?random=2";
   final receiverName = "Receiver";
+
+  @override
+  void initState() {
+    super.initState();
+    _amountController.value = TextEditingValue(text:widget.amount);
+  }
+
   @override
   Widget build(BuildContext context) {
     const imageSize = 60.0;
@@ -226,7 +238,6 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                       );
                       return;
                     }
-                    _amountController.text = "";
                     FocusScope.of(context).unfocus();
                     Navigator.push(
                       context,
