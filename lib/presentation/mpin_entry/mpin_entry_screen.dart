@@ -18,7 +18,7 @@ class MpinEntryScreen extends StatefulWidget {
 class _MpinEntryScreenState extends State<MpinEntryScreen> {
   final String upiLogoUrl = "https://logodix.com/logo/1645140.png";
 
-  final _controllers =
+  final List<TextEditingController> _controllers =
       List.generate(Constants.mpinLength, (index) => TextEditingController());
   MpinTextProvider? mpinTextProvider;
 
