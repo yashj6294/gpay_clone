@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gpay_clone/constants.dart';
-import 'package:gpay_clone/mpin_keypad.dart';
+import 'package:gpay_clone/presentation/mpin_entry/mpin_keypad.dart';
+import 'package:gpay_clone/presentation/payment_response/payment_response_screen.dart';
+import 'package:gpay_clone/utils/constants.dart';
 import 'package:gpay_clone/providers/mpin_text_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,8 @@ class MpinEntryScreen extends StatefulWidget {
 class _MpinEntryScreenState extends State<MpinEntryScreen> {
   final String upiLogoUrl = "https://logodix.com/logo/1645140.png";
 
-  final _controllers = List.generate(Constants.mpinLength, (index) => TextEditingController());
+  final _controllers =
+      List.generate(Constants.mpinLength, (index) => TextEditingController());
   MpinTextProvider? mpinTextProvider;
 
   _numberKeyPressed(String value, BuildContext context) {
@@ -44,7 +46,12 @@ class _MpinEntryScreenState extends State<MpinEntryScreen> {
   _donePressed(BuildContext context) {
     String mpin = mpinTextProvider?.mpin ?? "";
     if (mpin.length == Constants.mpinLength) {
-      //TODO :: Navigate to Success Screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => PaymentResponseScreen(amount: widget.amount),
+        ),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -69,6 +76,7 @@ class _MpinEntryScreenState extends State<MpinEntryScreen> {
         systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
           statusBarColor: Colors.indigo[700],
         ),
+        automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
@@ -80,7 +88,8 @@ class _MpinEntryScreenState extends State<MpinEntryScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 2.0),
-                  image: DecorationImage(image: imageProvider, fit: BoxFit.fitWidth),
+                  image: DecorationImage(
+                      image: imageProvider, fit: BoxFit.fitWidth),
                 ),
               ),
             ),
@@ -89,6 +98,7 @@ class _MpinEntryScreenState extends State<MpinEntryScreen> {
       ),
       body: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(
             'Receiver Name',
             style: TextStyle(
@@ -150,7 +160,8 @@ class _MpinEntryScreenState extends State<MpinEntryScreen> {
                   height: 40.0,
                   child: ListView.separated(
                     shrinkWrap: true,
-                    separatorBuilder: (context, index) => const SizedBox(width: 12),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 12),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) => SizedBox(
                       width: Constants.mpinLength == 4 ? 50.0 : 30.0,
@@ -167,11 +178,11 @@ class _MpinEntryScreenState extends State<MpinEntryScreen> {
                           counterText: "",
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colors.indigo[700]!,
-                              width: 2.0
-                            ),
+                                color: Colors.indigo[700]!, width: 2.0),
                           ),
                         ),
+                        obscureText: true,
+                        obscuringCharacter: '*',
                       ),
                     ),
                     itemCount: _controllers.length,

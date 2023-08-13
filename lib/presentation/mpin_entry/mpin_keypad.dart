@@ -18,19 +18,27 @@ class MpinKeypad extends StatelessWidget {
       color: Colors.white,
       padding: const EdgeInsets.only(bottom: 12.0),
       child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1 / .5),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, childAspectRatio: 1 / .5),
         itemCount: 12,
         shrinkWrap: true,
         padding: const EdgeInsets.only(bottom: 20.0),
         itemBuilder: (context, index) {
           return Center(
             child: index < 9
-                ? NumberKey(index: index + 1, numberKeyPressed: numberKeyPressed)
+                ? NumberKey(
+                    index: index + 1, numberKeyPressed: numberKeyPressed)
                 : index == 9
-                    ? IconKey(icon: Icons.backspace_rounded, onPressed: backSpacePressed)
+                    ? IconKey(
+                        icon: Icons.backspace_rounded,
+                        onPressed: backSpacePressed)
                     : index == 11
-                        ? IconKey(icon: Icons.check_circle_rounded, size: 80.0, onPressed: donePressed)
-                        : NumberKey(index: 0, numberKeyPressed: numberKeyPressed),
+                        ? IconKey(
+                            icon: Icons.check_circle_rounded,
+                            size: 80.0,
+                            onPressed: donePressed)
+                        : NumberKey(
+                            index: 0, numberKeyPressed: numberKeyPressed),
           );
         },
       ),

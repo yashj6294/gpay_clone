@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gpay_clone/mpin_entry_screen.dart';
+import 'package:gpay_clone/presentation/mpin_entry/mpin_entry_screen.dart';
 
 class AmountEntryScreen extends StatefulWidget {
   const AmountEntryScreen({super.key});
@@ -74,7 +74,8 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2.0),
-                          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
                         ),
                       ),
                     ),
@@ -93,7 +94,8 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2.0),
-                          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
                         ),
                       ),
                     ),
@@ -131,14 +133,16 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                           textAlign: TextAlign.center,
                           maxLength: 6,
                           controller: _amountController,
-                          style: const TextStyle(fontSize: 40.0, color: Colors.white, height: 1),
+                          style: const TextStyle(
+                              fontSize: 40.0, color: Colors.white, height: 1),
                           textAlignVertical: TextAlignVertical.center,
                           cursorColor: Colors.white,
                           cursorHeight: 35.0,
                           decoration: const InputDecoration(
                             counterText: "",
                             hintText: '0',
-                            hintStyle: TextStyle(fontSize: 40.0, color: Colors.white),
+                            hintStyle:
+                                TextStyle(fontSize: 40.0, color: Colors.white),
                             border: InputBorder.none,
                           ),
                           keyboardType: TextInputType.number,
@@ -158,7 +162,7 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
             ),
           ),
         ),
-        bottomSheet: Padding(
+        bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Container(
             height: height * 0.2,
@@ -186,7 +190,8 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                             width: 35,
                             padding: const EdgeInsets.all(2),
                             child: Container(
-                              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
                               height: 8,
                               width: 8,
                               alignment: Alignment.center,
@@ -206,13 +211,10 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.keyboard_arrow_down,
-                          color: Colors.black54,
-                          size: 28.0,
-                        ),
+                      const Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.black54,
+                        size: 28.0,
                       ),
                     ],
                   ),
@@ -221,15 +223,26 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                 MaterialButton(
                   height: 36.0,
                   onPressed: () {
+                    if (_amountController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please enter amount'),
+                        ),
+                      );
+                      return;
+                    }
+                    FocusScope.of(context).unfocus();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => MpinEntryScreen(amount: _amountController.value.text),
+                        builder: (_) => MpinEntryScreen(
+                            amount: _amountController.value.text),
                       ),
                     );
                   },
                   minWidth: double.infinity,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0)),
                   color: Colors.blue,
                   child: const Text(
                     'Proceed to pay',
@@ -240,11 +253,13 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                 RichText(
                   text: TextSpan(
                     text: 'IN PARTNERSHIP WITH ',
-                    style: const TextStyle(color: Colors.black54, fontSize: 12.0),
+                    style:
+                        const TextStyle(color: Colors.black54, fontSize: 12.0),
                     children: [
                       WidgetSpan(
                         child: Container(
-                          decoration: const BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+                          decoration: const BoxDecoration(
+                              color: Colors.grey, shape: BoxShape.circle),
                           height: 16,
                           width: 16,
                           alignment: Alignment.center,
