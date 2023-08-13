@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:gpay_clone/mpin_entry_screen.dart';
 
 class AmountEntryScreen extends StatefulWidget {
   const AmountEntryScreen({super.key});
@@ -27,7 +29,7 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              SystemNavigator.pop();
             },
             icon: const Icon(
               Icons.arrow_back,
@@ -218,7 +220,14 @@ class _AmountEntryScreenState extends State<AmountEntryScreen> {
                 const SizedBox(height: 12),
                 MaterialButton(
                   height: 36.0,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MpinEntryScreen(amount: _amountController.value.text),
+                      ),
+                    );
+                  },
                   minWidth: double.infinity,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
                   color: Colors.blue,
